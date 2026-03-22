@@ -151,6 +151,51 @@ Then use:
 recap save nmap -t basic
 ```
 
+### Kali Linux / Python PEP 668 Restrictions
+
+**Issue:** If you get `error: externally-managed-environment` when trying to install, your system prevents pip installations.
+
+**Solution:** Create a virtual environment and wrapper script:
+
+1. **Create and activate a virtual environment:**
+   ```bash
+   cd /home/kali/recap  # or your recap path
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Install the package in the virtual environment:**
+   ```bash
+   pip install -e .
+   deactivate
+   ```
+
+3. **Create a global wrapper script:**
+   ```bash
+   sudo nano /usr/local/bin/recap
+   ```
+
+   Paste this content:
+   ```bash
+   #!/bin/bash
+   /home/kali/recap/venv/bin/python /home/kali/recap/main.py "$@"
+   ```
+
+   Save and exit (`Ctrl+X`, then `Y`, then `Enter`)
+
+4. **Make it executable:**
+   ```bash
+   sudo chmod +x /usr/local/bin/recap
+   ```
+
+5. **Test it:**
+   ```bash
+   recap -h
+   recap --version
+   ```
+
+Now you can use `recap` from anywhere without activating the venv!
+
 #### Windows PowerShell
 
 Add to your PowerShell profile:
