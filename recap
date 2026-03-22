@@ -1,0 +1,7 @@
+#!/bin/bash
+# Recap CLI - Bash wrapper for Linux/macOS
+# Place this file in a directory that's in your PATH (e.g., ~/.local/bin or /usr/local/bin)
+# Or run from the recap folder directly
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+python "$SCRIPT_DIR/main.py" "$@"
